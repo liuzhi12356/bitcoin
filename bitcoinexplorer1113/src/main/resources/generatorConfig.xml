@@ -8,7 +8,7 @@
     <properties resource="generator.properties"></properties>-->
 
     <!--指定特定数据库的jdbc驱动jar包的位置 -->
-    <classPathEntry location="D:\softwore\mysql-connector-java-8.0.15.jar"/>
+    <classPathEntry location="E:\Java\mavenalibaba\mysql\mysql-connector-java\8.0.18\mysql-connector-java-8.0.18.jar"/>
 
     <context id="bitcoinexplorer"    targetRuntime="MyBatis3">
         <!-- optional，旨在创建class时，对注释进行控制 -->
@@ -18,7 +18,7 @@
         </commentGenerator>
 
         <!--数据库链接信息-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/exam?serverTimezone=UTC" userId="root" password="root">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/bitcoin?serverTimezone=UTC" userId="root" password="root">
         </jdbcConnection>
 
         <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
@@ -27,7 +27,7 @@
         </javaTypeResolver>
 
         <!--生成Model类存放位置-->
-        <javaModelGenerator targetPackage="com.lz.bitcoinexplorer1109.po" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.lz.bitcoinexplorer1113.po" targetProject="src/main/java">
             <!-- 是否对model添加 构造函数 -->
             <property name="constructorBased" value="false"/>
             <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
@@ -39,7 +39,7 @@
         </javaModelGenerator>
 
         <!--生成映射文件存放位置-->
-        <sqlMapGenerator targetPackage="com.lz.bitcoinexplorer1109.dao" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="com.lz.bitcoinexplorer1113.dao" targetProject="src/main/resources">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
@@ -49,7 +49,7 @@
                 type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
                 type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
         -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.lz.bitcoinexplorer1109.dao" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.lz.bitcoinexplorer1113.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
@@ -85,8 +85,8 @@
         <!--<table tableName="zk_service_order" domainObjectName="ServiceOrder" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<table tableName="zk_service_position" domainObjectName="ServicePosition" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <table tableName="block" domainObjectName="Block" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="transactionRecord" domainObjectName="TransactionRecord" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="transcation" domainObjectName="Transcation" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="transaction" domainObjectName="Transaction" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="transaction_detail" domainObjectName="TransactionDetail" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 
     </context>
 </generatorConfiguration>
