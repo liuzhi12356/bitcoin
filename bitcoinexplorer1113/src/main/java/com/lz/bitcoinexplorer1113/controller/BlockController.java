@@ -14,10 +14,7 @@ import java.util.List;
 @CrossOrigin
 @EnableAutoConfiguration
 public class BlockController {
-    @Autowired
-    private RestBitcoinClient restBitcoin;
-    @Autowired
-    private BlockMapper blockMapper;
+
 
     @RequestMapping("block/{hash}")
     public JSONObject GetBlockByHash(@PathVariable String hash){

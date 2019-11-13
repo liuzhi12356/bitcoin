@@ -1,7 +1,9 @@
 package com.lz.bitcoinexplorer1113.dao;
 
 import com.lz.bitcoinexplorer1113.po.Block;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface BlockMapper {
     int deleteByPrimaryKey(Integer blockId);
 

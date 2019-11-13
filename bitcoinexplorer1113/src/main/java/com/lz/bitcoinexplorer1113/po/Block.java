@@ -1,33 +1,39 @@
 package com.lz.bitcoinexplorer1113.po;
 
-import java.util.Date;
-
 public class Block {
     private Integer blockId;
 
-    private String hash;
-
-    private Double difficulty;
-
-    private Integer transactions;
+    private String blockhash;
 
     private Integer height;
 
-    private Integer version;
+    private Long time;
 
-    private Date timestamp;
+    private String miner;
 
-    private Double transactionVolume;
+    private Integer sizeondisk;
 
-    private String mined;
+    private Integer confirmations;
 
-    private Integer size;
+    private Integer txsize;
+
+    private Double difficulty;
+
+    private String merkleRoot;
+
+    private String bits;
+
+    private String version;
 
     private Integer weight;
 
     private Double blockReward;
 
     private Double feeReward;
+
+    private Double transactionVolume;
+
+    private Integer nonce;
 
     public Integer getBlockId() {
         return blockId;
@@ -37,28 +43,12 @@ public class Block {
         this.blockId = blockId;
     }
 
-    public String getHash() {
-        return hash;
+    public String getBlockhash() {
+        return blockhash;
     }
 
-    public void setHash(String hash) {
-        this.hash = hash == null ? null : hash.trim();
-    }
-
-    public Double getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(Double difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public Integer getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(Integer transactions) {
-        this.transactions = transactions;
+    public void setBlockhash(String blockhash) {
+        this.blockhash = blockhash == null ? null : blockhash.trim();
     }
 
     public Integer getHeight() {
@@ -69,44 +59,76 @@ public class Block {
         this.height = height;
     }
 
-    public Integer getVersion() {
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
+
+    public String getMiner() {
+        return miner;
+    }
+
+    public void setMiner(String miner) {
+        this.miner = miner == null ? null : miner.trim();
+    }
+
+    public Integer getSizeondisk() {
+        return sizeondisk;
+    }
+
+    public void setSizeondisk(Integer sizeondisk) {
+        this.sizeondisk = sizeondisk;
+    }
+
+    public Integer getConfirmations() {
+        return confirmations;
+    }
+
+    public void setConfirmations(Integer confirmations) {
+        this.confirmations = confirmations;
+    }
+
+    public Integer getTxsize() {
+        return txsize;
+    }
+
+    public void setTxsize(Integer txsize) {
+        this.txsize = txsize;
+    }
+
+    public Double getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Double difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public String getMerkleRoot() {
+        return merkleRoot;
+    }
+
+    public void setMerkleRoot(String merkleRoot) {
+        this.merkleRoot = merkleRoot == null ? null : merkleRoot.trim();
+    }
+
+    public String getBits() {
+        return bits;
+    }
+
+    public void setBits(String bits) {
+        this.bits = bits == null ? null : bits.trim();
+    }
+
+    public String getVersion() {
         return version;
     }
 
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Double getTransactionVolume() {
-        return transactionVolume;
-    }
-
-    public void setTransactionVolume(Double transactionVolume) {
-        this.transactionVolume = transactionVolume;
-    }
-
-    public String getMined() {
-        return mined;
-    }
-
-    public void setMined(String mined) {
-        this.mined = mined == null ? null : mined.trim();
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
+    public void setVersion(String version) {
+        this.version = version == null ? null : version.trim();
     }
 
     public Integer getWeight() {
@@ -131,5 +153,21 @@ public class Block {
 
     public void setFeeReward(Double feeReward) {
         this.feeReward = feeReward;
+    }
+
+    public Double getTransactionVolume() {
+        return transactionVolume;
+    }
+
+    public void setTransactionVolume(Double transactionVolume) {
+        this.transactionVolume = transactionVolume;
+    }
+
+    public Integer getNonce() {
+        return nonce;
+    }
+
+    public void setNonce(Integer nonce) {
+        this.nonce = nonce;
     }
 }

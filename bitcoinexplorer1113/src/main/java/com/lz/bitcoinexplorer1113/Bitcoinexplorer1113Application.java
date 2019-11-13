@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@MapperScan("com.lz.bitcoinexplorer.dao")
+@MapperScan("com.lz.bitcoinexplorer1113.dao")
 @EnableFeignClients
 public class Bitcoinexplorer1113Application {
 

@@ -90,4 +90,5 @@
       transaction_id = #{transactionId,jdbcType=INTEGER}
     where tx_detail_id = #{txDetailId,jdbcType=BIGINT}
   </update>
+
 </mapper>
