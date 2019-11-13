@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lz.bitcoinexplorer1113.dao.BlockMapper">
+
+  <resultMap id="BaseResultMap" type="com.lz.bitcoinexplorer1113.po.Block">
+    <id column="block_id" jdbcType="INTEGER" property="blockId" />
+    <result column="hash" jdbcType="VARCHAR" property="hash" />
+    <result column="difficulty" jdbcType="DOUBLE" property="difficulty" />
+    <result column="Transactions" jdbcType="INTEGER" property="transactions" />
+    <result column="height" jdbcType="INTEGER" property="height" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
+    <result column="transaction volume" jdbcType="DOUBLE" property="transactionVolume" />
+    <result column="mined" jdbcType="VARCHAR" property="mined" />
+    <result column="size" jdbcType="INTEGER" property="size" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="block Reward" jdbcType="DOUBLE" property="blockReward" />
+    <result column="fee Reward" jdbcType="DOUBLE" property="feeReward" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    block_id, hash, difficulty, Transactions, height, version, Timestamp, "transaction volume", 
+    mined, size, weight, "block Reward", "fee Reward"
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from block
+    where block_id = #{blockId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from block
+    where block_id = #{blockId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lz.bitcoinexplorer1113.po.Block">
+    insert into block (block_id, hash, difficulty, 
+      Transactions, height, version, 
+      Timestamp, "transaction volume", mined, 
+      size, weight, "block Reward", 
+      "fee Reward")
+    values (#{blockId,jdbcType=INTEGER}, #{hash,jdbcType=VARCHAR}, #{difficulty,jdbcType=DOUBLE}, 
+      #{transactions,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, 
+      #{timestamp,jdbcType=TIMESTAMP}, #{transactionVolume,jdbcType=DOUBLE}, #{mined,jdbcType=VARCHAR}, 
+      #{size,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, #{blockReward,jdbcType=DOUBLE}, 
+      #{feeReward,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lz.bitcoinexplorer1113.po.Block">
+    insert into block
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blockId != null">
+        block_id,
+      </if>
+      <if test="hash != null">
+        hash,
+      </if>
+      <if test="difficulty != null">
+        difficulty,
+      </if>
+      <if test="transactions != null">
+        Transactions,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="timestamp != null">
+        Timestamp,
+      </if>
+      <if test="transactionVolume != null">
+        "transaction volume",
+      </if>
+      <if test="mined != null">
+        mined,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="blockReward != null">
+        "block Reward",
+      </if>
+      <if test="feeReward != null">
+        "fee Reward",
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blockId != null">
+        #{blockId,jdbcType=INTEGER},
+      </if>
+      <if test="hash != null">
+        #{hash,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null">
+        #{difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="transactions != null">
+        #{transactions,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transactionVolume != null">
+        #{transactionVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="mined != null">
+        #{mined,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="blockReward != null">
+        #{blockReward,jdbcType=DOUBLE},
+      </if>
+      <if test="feeReward != null">
+        #{feeReward,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lz.bitcoinexplorer1113.po.Block">
+    update block
+    <set>
+      <if test="hash != null">
+        hash = #{hash,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null">
+        difficulty = #{difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="transactions != null">
+        Transactions = #{transactions,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="timestamp != null">
+        Timestamp = #{timestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transactionVolume != null">
+        "transaction volume" = #{transactionVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="mined != null">
+        mined = #{mined,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="blockReward != null">
+        "block Reward" = #{blockReward,jdbcType=DOUBLE},
+      </if>
+      <if test="feeReward != null">
+        "fee Reward" = #{feeReward,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where block_id = #{blockId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lz.bitcoinexplorer1113.po.Block">
+    update block
+    set hash = #{hash,jdbcType=VARCHAR},
+      difficulty = #{difficulty,jdbcType=DOUBLE},
+      Transactions = #{transactions,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER},
+      version = #{version,jdbcType=INTEGER},
+      Timestamp = #{timestamp,jdbcType=TIMESTAMP},
+      "transaction volume" = #{transactionVolume,jdbcType=DOUBLE},
+      mined = #{mined,jdbcType=VARCHAR},
+      size = #{size,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=INTEGER},
+      "block Reward" = #{blockReward,jdbcType=DOUBLE},
+      "fee Reward" = #{feeReward,jdbcType=DOUBLE}
+    where block_id = #{blockId,jdbcType=INTEGER}
+  </update>
+</mapper>
