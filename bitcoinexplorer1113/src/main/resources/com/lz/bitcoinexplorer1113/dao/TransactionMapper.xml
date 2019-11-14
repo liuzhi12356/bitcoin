@@ -208,4 +208,7 @@
     where transaction_id = #{transactionId,jdbcType=INTEGER}
   </update>
 
+  <update id="truncate">
+    truncate table transaction;
+  </update>
 </mapper>

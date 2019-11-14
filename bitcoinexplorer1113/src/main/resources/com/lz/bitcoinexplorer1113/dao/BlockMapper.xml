@@ -232,6 +232,14 @@
       nonce = #{nonce,jdbcType=INTEGER}
     where block_id = #{blockId,jdbcType=INTEGER}
   </update>
+<select id="selectByHeight" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List"></include>
+  from block where height=#{value}
+</select>
 
+  <update id="truncate">
+    truncate table block;
+  </update>
 
 </mapper>

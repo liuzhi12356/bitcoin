@@ -1,12 +1,13 @@
 package com.lz.bitcoinexplorer1113.client;
 
 import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
+import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Base64;
 import java.util.HashMap;
-
+@Component
 public class JsonRpcBitcoinClient {
     private JsonRpcHttpClient jsonRpcHttpClient;
 

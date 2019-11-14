@@ -1,19 +1,29 @@
 package com.lz.bitcoinexplorer1113.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.lz.bitcoinexplorer1113.client.JsonRpcBitcoinClient;
 import com.lz.bitcoinexplorer1113.client.RestBitcoinClient;
+import com.lz.bitcoinexplorer1113.service.SyncDataService;
+import com.lz.bitcoinexplorer1113.util.SerObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.*;
 import java.util.List;
 
 @RequestMapping("/test")
 @RestController
+@EnableAutoConfiguration
 public class TestController {
     @Autowired
     private RestBitcoinClient bitcoinRest;
+    @Autowired
+    private SyncDataService syncDataService;
+    @Autowired
+    private JsonRpcBitcoinClient jsonRpcBitcoinClient;
 
 
     @GetMapping("/hello")
@@ -28,5 +38,17 @@ public class TestController {
         JSONObject mempoolContents = bitcoinRest.getMempoolContents();
         JSONObject utxo = bitcoinRest.getUTXO("e00fd08ec52cc53312a3d97ee91c0662d952c564534aceb84a8e038a73230019", 0);
         return null;
+    }
+
+    @GetMapping("/init")
+    public void init() throws Throwable {
+        String bestBlockhash = jsonRpcBitcoinClient.getBestBlockhash();
+
+        String lasthash = syncDataService.preinitBlocks(bestBlockhash);
+        SerObject serObject = new SerObject();
+        serObject.setBesthash(bestBlockhash);
+        serObject.setLasthash(lasthash);
+        ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(new File("f:/serobject.txt")));
+        oos.writeObject(serObject);
     }
 }

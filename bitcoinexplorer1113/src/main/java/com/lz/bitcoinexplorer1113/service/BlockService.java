@@ -5,8 +5,5 @@ import org.springframework.stereotype.Service;
 
 
 public interface BlockService {
-    String syncBlock(String blockhash);
 
-
-    void syncBlocks(String fromBlockhash);
 }

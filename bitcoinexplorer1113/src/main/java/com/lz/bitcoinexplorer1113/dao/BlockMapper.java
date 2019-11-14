@@ -16,4 +16,7 @@ public interface BlockMapper {
     int updateByPrimaryKeySelective(Block record);
 
     int updateByPrimaryKey(Block record);
+
+    Block selectByHeight(Integer height);
+    void truncate();
 }
