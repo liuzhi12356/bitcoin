@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.lz.bitcoinexplorer1113.client.JsonRpcBitcoinClient;
 import com.lz.bitcoinexplorer1113.client.RestBitcoinClient;
 import com.lz.bitcoinexplorer1113.service.SyncDataService;
-import com.lz.bitcoinexplorer1113.util.SerObject;
+import com.lz.bitcoinexplorer1113.vo.SerObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;

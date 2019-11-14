@@ -32,7 +32,7 @@
     delete from transaction
     where transaction_id = #{transactionId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.lz.bitcoinexplorer1113.po.Transaction">
+  <insert id="insert" parameterType="com.lz.bitcoinexplorer1113.po.Transaction" keyProperty="transactionId" useGeneratedKeys="true">
     insert into transaction (transaction_id, txid, txhash, 
       time, amount, fees, confirmations, 
       status, sizeOnDisk, weight, 
