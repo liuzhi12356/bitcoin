@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.lz.bitcoinexplorer1113.client.JsonRpcBitcoinClient;
 import com.lz.bitcoinexplorer1113.client.RestBitcoinClient;
 import com.lz.bitcoinexplorer1113.service.SyncDataService;
+import com.lz.bitcoinexplorer1113.service.TranscationService;
 import com.lz.bitcoinexplorer1113.vo.SerObject;
+import org.omg.IOP.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,8 @@ public class TestController {
     private SyncDataService syncDataService;
     @Autowired
     private JsonRpcBitcoinClient jsonRpcBitcoinClient;
+    @Autowired
+    private TranscationService transcationService;
 
 
     @GetMapping("/hello")
@@ -50,5 +54,9 @@ public class TestController {
         serObject.setLasthash(lasthash);
         ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(new File("f:/serobject.txt")));
         oos.writeObject(serObject);
+    }
+    @GetMapping("/untxs")
+    public void untxs(){
+        transcationService.getuntxs();
     }
 }

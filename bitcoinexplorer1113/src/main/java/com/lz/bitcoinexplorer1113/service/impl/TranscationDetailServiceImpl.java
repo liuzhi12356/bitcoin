@@ -12,4 +12,38 @@ public class TranscationDetailServiceImpl implements TranscationDetailService {
     private TransactionDetailMapper transactionDetailMapper;
 
 
+    @Override
+    public int deleteByPrimaryKey(Long txDetailId) {
+        return 0;
+    }
+
+    @Override
+    public int insert(TransactionDetail record) {
+        return 0;
+    }
+
+    @Override
+    public int insertSelective(TransactionDetail record) {
+        return 0;
+    }
+
+    @Override
+    public TransactionDetail selectByPrimaryKey(Long txDetailId) {
+        return null;
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(TransactionDetail record) {
+        return 0;
+    }
+
+    @Override
+    public int updateByPrimaryKey(TransactionDetail record) {
+        return 0;
+    }
+
+    @Override
+    public void truncate() {
+
+    }
 }

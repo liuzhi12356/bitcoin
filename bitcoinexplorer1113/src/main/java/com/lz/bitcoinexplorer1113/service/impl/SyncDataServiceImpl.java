@@ -133,6 +133,7 @@ public class SyncDataServiceImpl implements SyncDataService {
         }
     }
 
+
     public void insertTransactionDetailVin(JSONArray vins,Integer transactionId) throws Throwable {
         for (int i=0;i<vins.size();i++) {
             JSONObject vin = vins.getJSONObject(i);
@@ -162,6 +163,7 @@ public class SyncDataServiceImpl implements SyncDataService {
 
     }
     public void insertTransactionDetailVout(JSONArray vouts,Integer transactionId){
+        Double sum = 0.0;
         for (int i=0;i<vouts.size();i++) {
             JSONObject vout = vouts.getJSONObject(i);
             TransactionDetail td = new TransactionDetail();
@@ -176,6 +178,7 @@ public class SyncDataServiceImpl implements SyncDataService {
                 td.setAmount(vout.getDouble("value"));
                 td.setAddress(string);
                 transactionDetailMapper.insert(td);
+                sum+=td.getAmount();
             }
 
         }
@@ -193,6 +196,11 @@ public class SyncDataServiceImpl implements SyncDataService {
         }
         return tempBlockhash;
     }
+
+
+
+
+
 
 
 }
