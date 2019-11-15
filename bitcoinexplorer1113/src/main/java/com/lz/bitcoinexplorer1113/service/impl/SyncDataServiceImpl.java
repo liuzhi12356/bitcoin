@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -134,6 +135,28 @@ public class SyncDataServiceImpl implements SyncDataService {
     }
 
 
+    public void syncTransactionByHash(String txid, Integer blockId, Long time) throws Throwable {
+        JSONObject transactionJson = bitcoinClient.getTransaction(txid);
+        Transaction transaction = new Transaction();
+        //set amount
+        transaction.setBlockId(blockId);
+        transaction.setSizeondisk(transactionJson.getInteger("size"));
+        transaction.setStatus((byte)0);
+        transaction.setTime(time);
+        transaction.setTxhash(transactionJson.getString("hash"));
+        transaction.setTxid(transactionJson.getString("txid"));
+        transaction.setWeight(transactionJson.getInteger("weight"));
+
+        transactionMapper.insert(transaction);
+
+        JSONArray vouts = transactionJson.getJSONArray("vout");
+        JSONArray vins = transactionJson.getJSONArray("vin");
+        insertTransactionDetailVin(vins,transaction.getTransactionId());
+        insertTransactionDetailVout(vouts,transaction.getTransactionId());
+
+    }
+
+
     public void insertTransactionDetailVin(JSONArray vins,Integer transactionId) throws Throwable {
         for (int i=0;i<vins.size();i++) {
             JSONObject vin = vins.getJSONObject(i);
@@ -156,9 +179,6 @@ public class SyncDataServiceImpl implements SyncDataService {
                     transactionDetailMapper.insert(td);
                 }
             }
-
-
-
         }
 
     }
