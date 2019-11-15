@@ -211,4 +211,16 @@
   <update id="truncate">
     truncate table transaction;
   </update>
+
+  <select id="address" resultType="com.lz.bitcoinexplorer1113.dto.AddressDto">
+    SELECT count(t.txhash) txSize,sum(t.total_input) totalReceived,sum(t.total_output) totalSend,d.address address from transaction_detail d LEFT JOIN
+                                                                                                                          `transaction` t on t.transaction_id=d.transaction_id
+    where d.address=#{address} GROUP BY d.address
+  </select>
+
+  <select id="gettxByaddress" resultMap="BaseResultMap">
+    SELECT t.* from transaction_detail d LEFT JOIN
+                      `transaction` t on t.transaction_id=d.transaction_id
+    where d.address=#{address}
+  </select>
 </mapper>

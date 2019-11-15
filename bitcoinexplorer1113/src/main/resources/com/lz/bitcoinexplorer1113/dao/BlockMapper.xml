@@ -242,4 +242,17 @@
     truncate table block;
   </update>
 
+  <select id="getblocks" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from block order by `time` limit 20
+  </select>
+
+  <select id="getblocksByPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from block
+  </select>
+
+
 </mapper>

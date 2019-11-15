@@ -3,6 +3,7 @@ package com.lz.bitcoinexplorer1113.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.lz.bitcoinexplorer1113.client.RestBitcoinClient;
 import com.lz.bitcoinexplorer1113.dao.TransactionMapper;
+import com.lz.bitcoinexplorer1113.dto.AddressDto;
 import com.lz.bitcoinexplorer1113.po.Transaction;
 import com.lz.bitcoinexplorer1113.service.TranscationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class TranscationServiceImpl implements TranscationService {
     public List<Transaction> getuntxs(){
         JSONObject mempoolContents = restBitcoinClient.getMempoolContents();
         ArrayList<Transaction> list = new ArrayList<>();
-        Set<Map.Entry<String, Object>> entries = mempoolContents.entrySet();
+
         Set<String> strings = mempoolContents.keySet();
         for (String string : strings) {
             Transaction transaction = new Transaction();
@@ -74,5 +75,15 @@ public class TranscationServiceImpl implements TranscationService {
 
         return list;
 
+    }
+
+    @Override
+    public AddressDto address(String address) {
+        return transactionMapper.address(address);
+    }
+
+    @Override
+    public List<Transaction> gettxByaddress(String address) {
+        return transactionMapper.gettxByaddress(address);
     }
 }

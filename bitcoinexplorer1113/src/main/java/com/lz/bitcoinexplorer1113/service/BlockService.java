@@ -22,5 +22,7 @@ public interface BlockService {
 
     Block selectByHeight(Integer height);
     void truncate();
+    List<Block> getblocks();
+    List<Block> getblocksByPage();
 
 }

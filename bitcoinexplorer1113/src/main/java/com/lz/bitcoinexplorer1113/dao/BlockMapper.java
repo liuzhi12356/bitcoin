@@ -3,6 +3,8 @@ package com.lz.bitcoinexplorer1113.dao;
 import com.lz.bitcoinexplorer1113.po.Block;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface BlockMapper {
     int deleteByPrimaryKey(Integer blockId);
@@ -19,4 +21,7 @@ public interface BlockMapper {
 
     Block selectByHeight(Integer height);
     void truncate();
+
+    List<Block> getblocks();
+    List<Block> getblocksByPage();
 }

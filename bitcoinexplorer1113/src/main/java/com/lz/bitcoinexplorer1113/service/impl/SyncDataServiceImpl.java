@@ -158,6 +158,7 @@ public class SyncDataServiceImpl implements SyncDataService {
 
 
     public void insertTransactionDetailVin(JSONArray vins,Integer transactionId) throws Throwable {
+        double x=0.0;
         for (int i=0;i<vins.size();i++) {
             JSONObject vin = vins.getJSONObject(i);
             Integer indexvout = vin.getInteger("vout");
@@ -177,10 +178,14 @@ public class SyncDataServiceImpl implements SyncDataService {
                     td.setAmount(-vout.getDouble("value"));
                     td.setAddress(string);
                     transactionDetailMapper.insert(td);
+                    x+=vout.getDouble("value");
                 }
             }
         }
-
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(transactionId);
+        transaction.setTotalInput(x);
+        transactionMapper.updateByPrimaryKeySelective(transaction);
     }
     public void insertTransactionDetailVout(JSONArray vouts,Integer transactionId){
         Double sum = 0.0;
@@ -202,6 +207,10 @@ public class SyncDataServiceImpl implements SyncDataService {
             }
 
         }
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(transactionId);
+        transaction.setTotalOutput(sum);
+        transactionMapper.updateByPrimaryKeySelective(transaction);
     }
 
 

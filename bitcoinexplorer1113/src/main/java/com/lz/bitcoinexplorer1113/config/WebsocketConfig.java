@@ -11,11 +11,11 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-       registry.enableSimpleBroker("/list");
+       registry.enableSimpleBroker("/bitcoin");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/btc").setAllowedOrigins("*").withSockJS();
+        registry.addEndpoint("/bitcoinexplorer").setAllowedOrigins("*").withSockJS();
     }
 }

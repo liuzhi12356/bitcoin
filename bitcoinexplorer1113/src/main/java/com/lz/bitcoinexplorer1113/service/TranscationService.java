@@ -1,6 +1,8 @@
 package com.lz.bitcoinexplorer1113.service;
 
+import com.lz.bitcoinexplorer1113.dto.AddressDto;
 import com.lz.bitcoinexplorer1113.po.Transaction;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,4 +20,7 @@ public interface TranscationService {
     int updateByPrimaryKey(Transaction record);
     void truncate();
     public List<Transaction> getuntxs();
+
+    AddressDto address(@Param("address") String address);
+    List<Transaction> gettxByaddress(@Param("address") String address);
 }
