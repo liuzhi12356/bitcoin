@@ -2,6 +2,7 @@ package com.lz.bitcoinexplorer1113.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.lz.bitcoinexplorer1113.client.JsonRpcBitcoinClient;
 import com.lz.bitcoinexplorer1113.client.RestBitcoinClient;
 import com.lz.bitcoinexplorer1113.dao.BlockMapper;
 import com.lz.bitcoinexplorer1113.dao.TransactionDetailMapper;
@@ -26,6 +27,8 @@ public class SyncDataServiceImpl implements SyncDataService {
     private TransactionMapper transactionMapper;
     @Autowired
     private TransactionDetailMapper transactionDetailMapper;
+    @Autowired
+    private JsonRpcBitcoinClient jsonRpcBitcoinClient;
 
 
     @Autowired
@@ -108,7 +111,7 @@ public class SyncDataServiceImpl implements SyncDataService {
         return previousblockhash;
     }
 
-    public void insertTransaction(JSONArray txs, Integer blockid, Integer confirmations,Long time){
+    public void insertTransaction(JSONArray txs, Integer blockid, Integer confirmations,Long time) throws Throwable {
         for(int i=0;i<txs.size();i++){
             Transaction tran = new Transaction();
             JSONObject tx = txs.getJSONObject(i);
@@ -124,16 +127,39 @@ public class SyncDataServiceImpl implements SyncDataService {
             JSONArray vouts = tx.getJSONArray("vout");
             JSONArray vins = tx.getJSONArray("vin");
 
-            // insertTransactionDetailVin(vins,tran.getTransactionId());
+             insertTransactionDetailVin(vins,tran.getTransactionId());
             insertTransactionDetailVout(vouts,tran.getTransactionId());
 
         }
     }
 
-    public void insertTransactionDetailVin(JSONArray vins,Integer transactionId){
+    public void insertTransactionDetailVin(JSONArray vins,Integer transactionId) throws Throwable {
         for (int i=0;i<vins.size();i++) {
+            JSONObject vin = vins.getJSONObject(i);
+            Integer indexvout = vin.getInteger("vout");
+            String txid = vin.getString("txid");
+            if(txid!=null){
+                JSONObject rawTransaxtion = jsonRpcBitcoinClient.getRawTransaxtion(txid);
+                JSONArray vouts = rawTransaxtion.getJSONArray("vout");
+                JSONObject vout = vouts.getJSONObject(indexvout);
+                TransactionDetail td = new TransactionDetail();
+
+                JSONObject scriptPubKey = vout.getJSONObject("scriptPubKey");
+                JSONArray addresses = scriptPubKey.getJSONArray("addresses");
+                if(addresses!=null){
+                    String string = addresses.getString(0);
+                    td.setTransactionId(transactionId);
+                    td.setType((byte)TransactionDetailType.send.ordinal());
+                    td.setAmount(-vout.getDouble("value"));
+                    td.setAddress(string);
+                    transactionDetailMapper.insert(td);
+                }
+            }
+
+
 
         }
+
     }
     public void insertTransactionDetailVout(JSONArray vouts,Integer transactionId){
         for (int i=0;i<vouts.size();i++) {
