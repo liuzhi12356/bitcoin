@@ -18,6 +18,24 @@
     <result column="fee_per_weight_unit" jdbcType="DOUBLE" property="feePerWeightUnit" />
     <result column="block_id" jdbcType="INTEGER" property="blockId" />
   </resultMap>
+  <resultMap id="TransacionDtoMap" type="com.lz.bitcoinexplorer1113.dto.TransactionDto">
+    <id column="transaction_id" jdbcType="INTEGER" property="transactionId" />
+    <result column="txid" jdbcType="CHAR" property="txid" />
+    <result column="txhash" jdbcType="CHAR" property="txhash" />
+    <result column="time" jdbcType="BIGINT" property="time" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+    <result column="fees" jdbcType="DOUBLE" property="fees" />
+    <result column="confirmations" jdbcType="INTEGER" property="confirmations" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="sizeOnDisk" jdbcType="INTEGER" property="sizeondisk" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="total_input" jdbcType="DOUBLE" property="totalInput" />
+    <result column="total_output" jdbcType="DOUBLE" property="totalOutput" />
+    <result column="fee_per_byte" jdbcType="DOUBLE" property="feePerByte" />
+    <result column="fee_per_weight_unit" jdbcType="DOUBLE" property="feePerWeightUnit" />
+    <result column="block_id" jdbcType="INTEGER" property="blockId" />
+    <collection property="transactionDetails" ofType="com.lz.bitcoinexplorer1113.dto.TransactionDetailsDto" column="transaction_id" select="com.lz.bitcoinexplorer1113.dao.TransactionDetailMapper.getDetilsByTransactionId"></collection>
+  </resultMap>
   <sql id="Base_Column_List">
     transaction_id, txid, txhash, time, amount, fees, confirmations, status, sizeOnDisk, 
     weight, total_input, total_output, fee_per_byte, fee_per_weight_unit, block_id
@@ -213,14 +231,35 @@
   </update>
 
   <select id="address" resultType="com.lz.bitcoinexplorer1113.dto.AddressDto">
-    SELECT count(t.txhash) txSize,sum(t.total_input) totalReceived,sum(t.total_output) totalSend,d.address address from transaction_detail d LEFT JOIN
-                                                                                                                          `transaction` t on t.transaction_id=d.transaction_id
+    SELECT count(t.txhash) txSize,
+           (
+             select SUM(amount)   from transaction_detail td1  where
+               td1.address=#{address} and td1.type=1
+
+           ) totalReceived,
+           (
+             select SUM(amount)  from transaction_detail td1  where
+               td1.address=#{address} and td1.type=0
+
+
+           ) totalSend,d.address address,SUM(d.amount) finalbalance from transaction_detail d LEFT JOIN
+                                                              `transaction` t on t.transaction_id=d.transaction_id
     where d.address=#{address} GROUP BY d.address
   </select>
 
-  <select id="gettxByaddress" resultMap="BaseResultMap">
-    SELECT t.* from transaction_detail d LEFT JOIN
+  <select id="gettxByaddress" resultMap="TransacionDtoMap">
+    SELECT * from transaction_detail d LEFT JOIN
                       `transaction` t on t.transaction_id=d.transaction_id
     where d.address=#{address}
+  </select>
+
+  <select id="gettransacionsByBlockId" resultMap="TransacionDtoMap">
+    select <include refid="Base_Column_List"></include>
+    from transaction where block_id=#{value}
+  </select>
+
+  <select id="gettxByhash" resultMap="TransacionDtoMap">
+    select <include refid="Base_Column_List"></include>
+    from transaction where txhash=#{value}
   </select>
 </mapper>

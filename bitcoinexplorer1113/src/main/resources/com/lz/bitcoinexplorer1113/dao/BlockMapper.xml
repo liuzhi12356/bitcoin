@@ -20,6 +20,25 @@
     <result column="transaction_volume" jdbcType="DOUBLE" property="transactionVolume" />
     <result column="nonce" jdbcType="INTEGER" property="nonce" />
   </resultMap>
+  <resultMap id="BlockDtoMap" type="com.lz.bitcoinexplorer1113.dto.BlockDto">
+  <id column="block_id" jdbcType="INTEGER" property="blockId" />
+  <result column="blockhash" jdbcType="CHAR" property="blockhash" />
+  <result column="height" jdbcType="INTEGER" property="height" />
+  <result column="time" jdbcType="BIGINT" property="time" />
+  <result column="miner" jdbcType="VARCHAR" property="miner" />
+  <result column="sizeOnDisk" jdbcType="INTEGER" property="sizeondisk" />
+  <result column="confirmations" jdbcType="INTEGER" property="confirmations" />
+  <result column="txSize" jdbcType="INTEGER" property="txsize" />
+  <result column="difficulty" jdbcType="DOUBLE" property="difficulty" />
+  <result column="merkle_root" jdbcType="CHAR" property="merkleRoot" />
+  <result column="bits" jdbcType="VARCHAR" property="bits" />
+  <result column="version" jdbcType="VARCHAR" property="version" />
+  <result column="weight" jdbcType="INTEGER" property="weight" />
+  <result column="block_reward" jdbcType="DOUBLE" property="blockReward" />
+  <result column="fee_reward" jdbcType="DOUBLE" property="feeReward" />
+  <result column="transaction_volume" jdbcType="DOUBLE" property="transactionVolume" />
+  <result column="nonce" jdbcType="INTEGER" property="nonce" />
+</resultMap>
   <sql id="Base_Column_List">
     block_id, blockhash, height, time, miner, sizeOnDisk, confirmations, txSize, difficulty, 
     merkle_root, bits, version, weight, block_reward, fee_reward, transaction_volume, 
@@ -252,6 +271,17 @@
     select
     <include refid="Base_Column_List"></include>
     from block
+  </select>
+
+  <select id="getblockByHeight" resultMap="BlockDtoMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from block where height=#{value}
+  </select>
+  <select id="getblockByhash" resultMap="BlockDtoMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from block where blockhash=#{value}
   </select>
 
 

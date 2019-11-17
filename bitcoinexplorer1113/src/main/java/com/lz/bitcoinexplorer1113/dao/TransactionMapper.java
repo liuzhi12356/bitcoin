@@ -1,6 +1,7 @@
 package com.lz.bitcoinexplorer1113.dao;
 
 import com.lz.bitcoinexplorer1113.dto.AddressDto;
+import com.lz.bitcoinexplorer1113.dto.TransactionDto;
 import com.lz.bitcoinexplorer1113.po.Transaction;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,5 +23,9 @@ public interface TransactionMapper {
     void truncate();
 
     AddressDto address(@Param("address") String address);
-    List<Transaction> gettxByaddress(@Param("address") String address);
+    List<TransactionDto> gettxByaddress(@Param("address") String address);
+
+    List<TransactionDto> gettransacionsByBlockId(Integer blockId);
+
+    TransactionDto gettxByhash(String hash);
 }

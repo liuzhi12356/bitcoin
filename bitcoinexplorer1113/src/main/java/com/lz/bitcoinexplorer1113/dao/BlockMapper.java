@@ -1,5 +1,6 @@
 package com.lz.bitcoinexplorer1113.dao;
 
+import com.lz.bitcoinexplorer1113.dto.BlockDto;
 import com.lz.bitcoinexplorer1113.po.Block;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -24,4 +25,7 @@ public interface BlockMapper {
 
     List<Block> getblocks();
     List<Block> getblocksByPage();
+
+    BlockDto getblockByHeight(Integer height);
+    BlockDto getblockByhash(String hash);
 }

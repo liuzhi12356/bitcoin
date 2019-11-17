@@ -21,7 +21,7 @@ public class BitcoinScheduler {
         String besthash = o.getBesthash();
         logger.info("show"+besthash);
         String s = syncDataService.syncBlocks(besthash);
-        if(besthash!=s){
+        if(besthash!=s&&s!=null){
             o.setBesthash(s);
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("f:/serobject.txt")));
             oos.writeObject(o);

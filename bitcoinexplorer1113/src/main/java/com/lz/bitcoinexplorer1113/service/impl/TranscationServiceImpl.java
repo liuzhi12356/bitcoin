@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.lz.bitcoinexplorer1113.client.RestBitcoinClient;
 import com.lz.bitcoinexplorer1113.dao.TransactionMapper;
 import com.lz.bitcoinexplorer1113.dto.AddressDto;
+import com.lz.bitcoinexplorer1113.dto.TransactionDto;
 import com.lz.bitcoinexplorer1113.po.Transaction;
 import com.lz.bitcoinexplorer1113.service.TranscationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,37 +22,37 @@ public class TranscationServiceImpl implements TranscationService {
 
     @Override
     public int deleteByPrimaryKey(Integer transactionId) {
-        return 0;
+        return transactionMapper.deleteByPrimaryKey(transactionId);
     }
 
     @Override
     public int insert(Transaction record) {
-        return 0;
+        return transactionMapper.insert(record);
     }
 
     @Override
     public int insertSelective(Transaction record) {
-        return 0;
+        return transactionMapper.insertSelective(record);
     }
 
     @Override
     public Transaction selectByPrimaryKey(Integer transactionId) {
-        return null;
+        return transactionMapper.selectByPrimaryKey(transactionId);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Transaction record) {
-        return 0;
+        return transactionMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(Transaction record) {
-        return 0;
+        return transactionMapper.updateByPrimaryKey(record);
     }
 
     @Override
     public void truncate() {
-
+              transactionMapper.truncate();
     }
 
 
@@ -83,7 +84,18 @@ public class TranscationServiceImpl implements TranscationService {
     }
 
     @Override
-    public List<Transaction> gettxByaddress(String address) {
+    public List<TransactionDto> gettxByaddress(String address) {
+
         return transactionMapper.gettxByaddress(address);
+    }
+
+    @Override
+    public List<TransactionDto> gettransacionsByBlockId(Integer blockId) {
+        return transactionMapper.gettransacionsByBlockId(blockId);
+    }
+
+    @Override
+    public TransactionDto gettxByhash(String hash) {
+        return transactionMapper.gettxByhash(hash);
     }
 }

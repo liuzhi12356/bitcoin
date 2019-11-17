@@ -6,6 +6,8 @@ import com.github.pagehelper.PageInfo;
 import com.lz.bitcoinexplorer1113.client.RestBitcoinClient;
 import com.lz.bitcoinexplorer1113.dao.BlockMapper;
 import com.lz.bitcoinexplorer1113.dto.AddressDto;
+import com.lz.bitcoinexplorer1113.dto.BlockDto;
+import com.lz.bitcoinexplorer1113.dto.TransactionDto;
 import com.lz.bitcoinexplorer1113.po.Block;
 import com.lz.bitcoinexplorer1113.po.Transaction;
 import com.lz.bitcoinexplorer1113.service.BlockService;
@@ -43,20 +45,35 @@ public class BlockController {
         PageInfo<Block> blockPageInfo = new PageInfo<>(blocks);
         return blockPageInfo;
     }
-    @GetMapping("block/{height}/{page}")
-    public JSONObject getBlockByHeight(@RequestParam Integer height,@PathVariable Integer page){
-        return null;
+    @GetMapping("/getblockbyheight/{height}")
+    public BlockDto getBlockByHeight(@PathVariable Integer height,@RequestParam(required = false,defaultValue = "1")Integer page){
+        BlockDto blockDto=blockService.getblockByHeight(height);
+        Integer blockId = blockDto.getBlockId();
+        PageHelper.startPage(page,10);
+        List<TransactionDto> dtos=transcationService.gettransacionsByBlockId(blockId);
+        PageInfo<TransactionDto> transactionDtoPageInfo = new PageInfo<>(dtos);
+        blockDto.setTransactions(transactionDtoPageInfo);
+        return blockDto;
     }
-    @RequestMapping("/block/{hash}/{page}")
-    public Block getBlocks(@PathVariable String hash,@PathVariable Integer page){
-        return null;
+    @RequestMapping("/getblockbyhash/{hash}")
+    public BlockDto getBlocks(@PathVariable String hash,@RequestParam(required = false,defaultValue = "1")Integer page){
+        BlockDto blockDto=blockService.getblockByhash(hash);
+        Integer blockId = blockDto.getBlockId();
+        PageHelper.startPage(page,10);
+        List<TransactionDto> dtos=transcationService.gettransacionsByBlockId(blockId);
+        PageInfo<TransactionDto> transactionDtoPageInfo = new PageInfo<>(dtos);
+        blockDto.setTransactions(transactionDtoPageInfo);
+        return blockDto;
     }
 
     @RequestMapping("/address/{address}")
-    public AddressDto getinfoByAddress(@PathVariable String address){
+    public AddressDto getinfoByAddress(@PathVariable String address,@RequestParam(required = false,defaultValue = "1")Integer page){
         AddressDto address1 = transcationService.address(address);
-        List<Transaction> transactions = transcationService.gettxByaddress(address);
-        address1.setTransactions(transactions);
+        PageHelper.startPage(page,10);
+        List<TransactionDto> transactions = transcationService.gettxByaddress(address);
+        PageInfo<TransactionDto> tran = new PageInfo<>(transactions);
+        address1.setTransactions(tran);
+
 
         return address1;
     }

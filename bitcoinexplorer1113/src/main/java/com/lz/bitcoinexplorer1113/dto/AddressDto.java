@@ -1,5 +1,6 @@
 package com.lz.bitcoinexplorer1113.dto;
 
+import com.github.pagehelper.PageInfo;
 import com.lz.bitcoinexplorer1113.po.Transaction;
 
 import java.util.List;
@@ -10,8 +11,8 @@ public class AddressDto {
     private Integer txSize;
     private double totalReceived;
     private double totalSent;
-    private double balance;
-    private List<Transaction> transactions;
+    private double finalbalance;
+    private PageInfo<TransactionDto> transactions;
 
     public String getAddress() {
         return address;
@@ -49,19 +50,23 @@ public class AddressDto {
         this.totalSent = totalSent;
     }
 
-    public double getBalance() {
-        return balance;
+
+
+
+
+    public double getFinalbalance() {
+        return finalbalance;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public void setFinalbalance(double finalbalance) {
+        this.finalbalance = finalbalance;
     }
 
-    public List<Transaction> getTransactions() {
+    public PageInfo<TransactionDto> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
+    public void setTransactions(PageInfo<TransactionDto> transactions) {
         this.transactions = transactions;
     }
 }

@@ -8,6 +8,13 @@
     <result column="amount" jdbcType="DOUBLE" property="amount" />
     <result column="transaction_id" jdbcType="INTEGER" property="transactionId" />
   </resultMap>
+  <resultMap id="TransactionDetailDtoMap" type="com.lz.bitcoinexplorer1113.dto.TransactionDetailsDto">
+    <id column="tx_detail_id" jdbcType="BIGINT" property="txDetailId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+    <result column="transaction_id" jdbcType="INTEGER" property="transactionId" />
+  </resultMap>
   <sql id="Base_Column_List">
     tx_detail_id, address, type, amount, transaction_id
   </sql>
@@ -93,4 +100,9 @@
   <update id="truncate">
     truncate table transaction_detail;
   </update>
+
+  <select id="getDetilsByTransactionId" resultMap="TransactionDetailDtoMap">
+    select <include refid="Base_Column_List"></include>
+    from transaction_detail where transaction_id=#{value}
+  </select>
 </mapper>

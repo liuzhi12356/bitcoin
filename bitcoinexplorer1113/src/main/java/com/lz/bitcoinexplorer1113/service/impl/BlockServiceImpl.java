@@ -1,6 +1,7 @@
 package com.lz.bitcoinexplorer1113.service.impl;
 
 import com.lz.bitcoinexplorer1113.dao.BlockMapper;
+import com.lz.bitcoinexplorer1113.dto.BlockDto;
 import com.lz.bitcoinexplorer1113.po.Block;
 import com.lz.bitcoinexplorer1113.service.BlockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,42 +17,42 @@ public class BlockServiceImpl implements BlockService {
 
     @Override
     public int deleteByPrimaryKey(Integer blockId) {
-        return 0;
+        return blockMapper.deleteByPrimaryKey(blockId);
     }
 
     @Override
     public int insert(Block record) {
-        return 0;
+        return blockMapper.insert(record);
     }
 
     @Override
     public int insertSelective(Block record) {
-        return 0;
+        return blockMapper.insertSelective(record);
     }
 
     @Override
     public Block selectByPrimaryKey(Integer blockId) {
-        return null;
+        return blockMapper.selectByPrimaryKey(blockId);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Block record) {
-        return 0;
+        return blockMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(Block record) {
-        return 0;
+        return blockMapper.updateByPrimaryKey(record);
     }
 
     @Override
     public Block selectByHeight(Integer height) {
-        return null;
+        return blockMapper.selectByHeight(height);
     }
 
     @Override
     public void truncate() {
-
+     blockMapper.truncate();
     }
 
     @Override
@@ -62,5 +63,16 @@ public class BlockServiceImpl implements BlockService {
     @Override
     public List<Block> getblocksByPage() {
         return blockMapper.getblocksByPage();
+    }
+
+    @Override
+    public BlockDto getblockByHeight(Integer height) {
+        return blockMapper.getblockByHeight(height);
+    }
+
+    @Override
+    public BlockDto getblockByhash(String hash) {
+
+        return blockMapper.getblockByhash(hash);
     }
 }
