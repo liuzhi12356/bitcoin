@@ -8,6 +8,8 @@ import java.util.List;
 
 public class BlockDto extends Block {
     private PageInfo<TransactionDto> transactions;
+    private String timeFormat;
+
 
 
     public PageInfo<TransactionDto> getTransactions() {
@@ -16,5 +18,13 @@ public class BlockDto extends Block {
 
     public void setTransactions(PageInfo<TransactionDto> transactions) {
         this.transactions = transactions;
+    }
+
+    public String getTimeFormat() {
+        return timeFormat;
+    }
+
+    public void setTimeFormat(String timeFormat) {
+        this.timeFormat = timeFormat;
     }
 }

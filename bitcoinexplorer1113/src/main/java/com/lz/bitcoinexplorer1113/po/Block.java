@@ -34,6 +34,15 @@ public class Block {
     private Double transactionVolume;
 
     private Integer nonce;
+    private String timeFormat;
+
+    public String getTimeFormat() {
+        return timeFormat;
+    }
+
+    public void setTimeFormat(String timeFormat) {
+        this.timeFormat = timeFormat;
+    }
 
     public Integer getBlockId() {
         return blockId;

@@ -270,7 +270,7 @@
   <select id="getblocksByPage" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"></include>
-    from block
+    from block order by `time`
   </select>
 
   <select id="getblockByHeight" resultMap="BlockDtoMap">

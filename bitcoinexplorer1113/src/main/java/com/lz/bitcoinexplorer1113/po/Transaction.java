@@ -31,6 +31,9 @@ public class Transaction implements  Comparable<Transaction>{
 
     private Integer blockId;
 
+    private String timeFormat;
+
+
     public Integer getTransactionId() {
         return transactionId;
     }
@@ -154,5 +157,13 @@ public class Transaction implements  Comparable<Transaction>{
     @Override
     public int compareTo(Transaction o) {
         return -this.time.compareTo(o.time);
+    }
+
+    public String getTimeFormat() {
+        return timeFormat;
+    }
+
+    public void setTimeFormat(String timeFormat) {
+        this.timeFormat = timeFormat;
     }
 }

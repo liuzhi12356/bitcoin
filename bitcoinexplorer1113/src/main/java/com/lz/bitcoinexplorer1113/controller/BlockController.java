@@ -12,6 +12,7 @@ import com.lz.bitcoinexplorer1113.po.Block;
 import com.lz.bitcoinexplorer1113.po.Transaction;
 import com.lz.bitcoinexplorer1113.service.BlockService;
 import com.lz.bitcoinexplorer1113.service.TranscationService;
+import com.lz.bitcoinexplorer1113.util.TimeFormatUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -31,10 +32,15 @@ public class BlockController {
     private TranscationService transcationService;
 
 
-    @MessageMapping("/blocks")
-    @SendTo("/bitcoin/blocks")
-    public List<Block> getBlockByHash(){
+    //@MessageMapping("/blocks")
+    //@SendTo("/bitcoin/blocks")
+    @RequestMapping("/blocks")
+    public List<Block> getBlocks(){
         List<Block> getblocks = blockService.getblocks();
+        for (Block getblock : getblocks) {
+             getblock.setTimeFormat(TimeFormatUtil.timeAgo(getblock.getTime()));
+             System.out.println(getblock.getTimeFormat());
+        }
         return getblocks;
     }
 
@@ -49,6 +55,7 @@ public class BlockController {
     public BlockDto getBlockByHeight(@PathVariable Integer height,@RequestParam(required = false,defaultValue = "1")Integer page){
         BlockDto blockDto=blockService.getblockByHeight(height);
         Integer blockId = blockDto.getBlockId();
+        blockDto.setTimeFormat(TimeFormatUtil.blocktime(blockDto.getTime()));
         PageHelper.startPage(page,10);
         List<TransactionDto> dtos=transcationService.gettransacionsByBlockId(blockId);
         PageInfo<TransactionDto> transactionDtoPageInfo = new PageInfo<>(dtos);
@@ -56,8 +63,9 @@ public class BlockController {
         return blockDto;
     }
     @RequestMapping("/getblockbyhash/{hash}")
-    public BlockDto getBlocks(@PathVariable String hash,@RequestParam(required = false,defaultValue = "1")Integer page){
+    public BlockDto getblockbyhash(@PathVariable String hash,@RequestParam(required = false,defaultValue = "1")Integer page){
         BlockDto blockDto=blockService.getblockByhash(hash);
+        blockDto.setTimeFormat(TimeFormatUtil.blocktime(blockDto.getTime()));
         Integer blockId = blockDto.getBlockId();
         PageHelper.startPage(page,10);
         List<TransactionDto> dtos=transcationService.gettransacionsByBlockId(blockId);

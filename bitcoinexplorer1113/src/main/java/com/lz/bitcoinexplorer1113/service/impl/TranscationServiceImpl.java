@@ -7,6 +7,7 @@ import com.lz.bitcoinexplorer1113.dto.AddressDto;
 import com.lz.bitcoinexplorer1113.dto.TransactionDto;
 import com.lz.bitcoinexplorer1113.po.Transaction;
 import com.lz.bitcoinexplorer1113.service.TranscationService;
+import com.lz.bitcoinexplorer1113.util.TimeFormatUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,6 +71,7 @@ public class TranscationServiceImpl implements TranscationService {
           transaction.setTxhash(string);
           transaction.setTime(o.getLong("time"));
           transaction.setFees(o.getDouble("fee"));
+          transaction.setTimeFormat(TimeFormatUtil.nowTimes(o.getLong("time")));
           list.add(transaction);
         }
         Collections.sort(list,Transaction::compareTo);

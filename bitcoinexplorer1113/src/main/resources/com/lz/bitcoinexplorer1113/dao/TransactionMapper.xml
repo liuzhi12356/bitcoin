@@ -250,12 +250,12 @@
   <select id="gettxByaddress" resultMap="TransacionDtoMap">
     SELECT * from transaction_detail d LEFT JOIN
                       `transaction` t on t.transaction_id=d.transaction_id
-    where d.address=#{address}
+    where d.address=#{address} order by `time`
   </select>
 
   <select id="gettransacionsByBlockId" resultMap="TransacionDtoMap">
     select <include refid="Base_Column_List"></include>
-    from transaction where block_id=#{value}
+    from transaction where block_id=#{value} order by `time`
   </select>
 
   <select id="gettxByhash" resultMap="TransacionDtoMap">

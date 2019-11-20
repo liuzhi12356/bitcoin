@@ -27,9 +27,14 @@ public class TranscationController {
     }
 
 
-    @MessageMapping("/getRecentUnconfirmed")
-    @SendTo("/bitcoin/tran")
+    /*@MessageMapping("/getRecentUnconfirmed")
+    @SendTo("/bitcoin/tran")*/
+    @RequestMapping("/getRecentUnconfirmed")
     public List<Transaction> getRecentUnconfirmed(@RequestParam(required = false, defaultValue = "15") Integer size, @RequestParam(defaultValue = "0") Integer status){
+        List<Transaction> getuntxs = transcationService.getuntxs();
+        for (Transaction getuntx : getuntxs) {
+            System.out.println(getuntx.getTime());
+        }
         return transcationService.getuntxs();
     }
 
