@@ -63,7 +63,7 @@ public class TranscationServiceImpl implements TranscationService {
     public List<Transaction> getuntxs(){
         JSONObject mempoolContents = restBitcoinClient.getMempoolContents();
         ArrayList<Transaction> list = new ArrayList<>();
-
+        
         Set<String> strings = mempoolContents.keySet();
         for (String string : strings) {
             Transaction transaction = new Transaction();
