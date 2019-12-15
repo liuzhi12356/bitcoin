@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.lz.bitcoinexplorer1113.dto.TransactionDto;
 import com.lz.bitcoinexplorer1113.po.Transaction;
 import com.lz.bitcoinexplorer1113.service.TranscationService;
+import com.lz.bitcoinexplorer1113.util.TimeFormatUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -23,6 +24,7 @@ public class TranscationController {
     @RequestMapping("/getbyhash/{hash}")
     public TransactionDto gettranscationByHash(@PathVariable String hash){
         TransactionDto transactionDto=transcationService.gettxByhash(hash);
+        transactionDto.setTimeFormat(TimeFormatUtil.blocktime(transactionDto.getTime()));
         return transactionDto;
     }
 

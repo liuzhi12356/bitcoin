@@ -20,7 +20,7 @@ public class JsonRpcBitcoinClient {
         String s = Base64.getEncoder().encodeToString(("lz" + ":" + "123456").getBytes());
         HashMap<String, String> ma = new HashMap<>();
         ma.put("Authorization","Basic "+s);
-        jsonRpcHttpClient=new JsonRpcHttpClient(new URL("http://localhost:18332/"),ma);
+        jsonRpcHttpClient=new JsonRpcHttpClient(new URL("http://10.253.250.16:18332/"),ma);
 
     }
 

@@ -79,7 +79,11 @@ public class BlockController {
         AddressDto address1 = transcationService.address(address);
         PageHelper.startPage(page,10);
         List<TransactionDto> transactions = transcationService.gettxByaddress(address);
+        for (TransactionDto transaction : transactions) {
+            transaction.setTimeFormat(TimeFormatUtil.nowTimes(transaction.getTime()));
+        }
         PageInfo<TransactionDto> tran = new PageInfo<>(transactions);
+
         address1.setTransactions(tran);
 
 

@@ -9,6 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class SearchController {
     @RequestMapping("/{search}")
     public String search(@PathVariable String search) {
+
+
+
+
+
+
+
+
+
+
+
         if (search.startsWith("000")) {
             return "block";
         } else if (search.length() < 64) {

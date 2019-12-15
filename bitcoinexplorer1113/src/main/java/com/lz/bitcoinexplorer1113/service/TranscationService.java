@@ -28,4 +28,5 @@ public interface TranscationService {
     List<TransactionDto> gettransacionsByBlockId(Integer blockId);
 
     TransactionDto gettxByhash(String hash);
+    public List<Transaction> untxs();
 }

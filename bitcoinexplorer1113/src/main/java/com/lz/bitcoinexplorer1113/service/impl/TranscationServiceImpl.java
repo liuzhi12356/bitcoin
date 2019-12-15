@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
-public class TranscationServiceImpl implements TranscationService {
+public class TranscationServiceImpl
+        implements TranscationService {
     @Autowired
     private TransactionMapper transactionMapper;
     
@@ -99,5 +101,34 @@ public class TranscationServiceImpl implements TranscationService {
     @Override
     public TransactionDto gettxByhash(String hash) {
         return transactionMapper.gettxByhash(hash);
+    }
+
+
+    private JSONObject oldObject=new JSONObject();
+    private ArrayList<Transaction> trans=new ArrayList<>();
+
+    @Override
+    public List<Transaction> untxs() {
+        trans=new ArrayList<>();
+        JSONObject mempoolContents = restBitcoinClient.getMempoolContents();
+        Set<String> strings = mempoolContents.keySet();
+        for (String string : strings) {
+            if(!oldObject.containsKey(string)){
+                JSONObject jsonObject = mempoolContents.getJSONObject(string);
+                Transaction transaction = new Transaction();
+                JSONObject o = mempoolContents.getJSONObject(string);
+                transaction.setTxhash(string);
+                transaction.setTime(o.getLong("time"));
+                transaction.setFees(o.getDouble("fee"));
+                transaction.setTimeFormat(TimeFormatUtil.nowTimes(o.getLong("time")));
+                trans.add(transaction);
+            }
+        }
+        oldObject=mempoolContents;
+
+        List<Transaction> collect = trans.stream().sorted((t1, t2) -> {
+            return (int) (t2.getTime() - t1.getTime());
+        }).collect(Collectors.toList());
+        return collect;
     }
 }
